@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="test.css" rel="stylesheet">
+</head>
+<body>
+<div class="window">
+    <div id = "app">
+        <!--<label class="tab-label" :class="{active: count === 1}" @click="loginUI">登录</label>
+        <label class="tab-label" :class="{active: count === 2}" @click="registerUI">注册</label>
+        -->
+        <!--<input type="button" value="login" v-on:click="loginUI">
+        <input type="button" value="register" v-on:click="registerUI">-->
+        <div>
+            <label id="change1" v-bind:class="{active : type === 'login'}" v-on:click="loginUI">login</label>
+            <label>/</label>
+            <label id="change2" v-bind:class="{active : type === 'register'}" v-on:click="registerUI">register</label>
+        </div>
+
+        <form v-if="count === 1">
+            <h2>登录</h2>
+            <label for="user">账号</label>
+            <input class="jtf" id="user" type="text" v-model="login.username"><label class="warn" v-if="login.username === ''">*必填*</label><br>
+            <label>密码</label>
+            <input class="jtf" type="password" v-model="login.password"><label class="warn" v-if="login.password === ''">*必填*</label><br>
+            <input class="btn" type="button" value="登录" v-on:click="isEmpy">
+        </form>
+        <form v-if="count === 2">
+            <h2>注册</h2>
+            <label for="user2">账号</label>
+            <input class="jtf" id = "user2" type="text" v-model="register.username" v-on:input="compare"><label class="warn" v-if="register.username === ''">*必填*</label><br>
+            <label for="pw1">密码</label>
+            <input class="jtf" id="pw1" type="password" v-model="register.password" v-on:input="compare"><label class="warn" v-if="register.password === ''">*必填*</label><br>
+            <label>再次输入密码</label>
+            <input class="jtf" id="pw2" type="password" v-model="register.passwordagain"  v-on:input="compare"><label class="warn" v-if="register.passwordagain === ''">*必填*</label><br>
+            <label class="warn" id="warn1" v-if="register.warning1 === 1">密码不一致</label><br v-if="register.warning1 === 1">
+            <input class="btn" type="button" value="注册" v-on:click="checkregister">
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+<script src="test.js"></script>
+
+</body>
+</html>
