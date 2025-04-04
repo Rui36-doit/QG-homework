@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="test.css" rel="stylesheet">
+</head>
+<body>
+<div class="window">
+    <div id = "app">
+        <!--<label class="tab-label" :class="{active: count === 1}" @click="loginUI">登录</label>
+        <label class="tab-label" :class="{active: count === 2}" @click="registerUI">注册</label>
+        -->
+        <!--<input type="button" value="login" v-on:click="loginUI">
+        <input type="button" value="register" v-on:click="registerUI">-->
+        <div v-show="UI.loginissee">
+            <label id="change1" v-bind:class="{active : type === 'login'}" v-on:click="loginUI">login</label>
+            <label>/</label>
+            <label id="change2" v-bind:class="{active : type === 'register'}" v-on:click="registerUI">register</label>
+        </div>
+        <!--登录表单-->
+        <form v-if="count === 1" v-on:submit.prevent="submitinfor" action="/test/myservelt" method="post">
+            <h2>登录</h2>
+            <label for="user">账号</label>
+            <input class="jtf" id="user" type="text" v-model="login.username">
+            <label class="warn" v-if="login.username === ''">*必填*</label><br>
+            <label class="warn" v-if="checkname(login.username) === false">账号只能包含数字</label><br>
+            <label>密码</label>
+            <input class="jtf" type="password" v-model="login.password">
+            <label class="warn" v-if="login.password === ''">*必填*</label><br>
+            <input class="btn" type="button" value="登录" v-on:click="submitinfor">
+        </form>
+        <!--注册表单-->
+        <form v-if="count === 2">
+            <h2>注册</h2>
+            <label for="user2">账号</label>
+            <input class="jtf" id = "user2" type="text" v-model="register.username" v-on:input="compare">
+            <label class="warn" v-if="register.username === ''">*必填*</label><br>
+            <!--<label class="warn" v-if="checkname(register.username) === false">账号只能包含数字</label><br>-->
+            <label for="pw1">密码</label>
+            <input class="jtf" id="pw1" type="password" v-model="register.password" v-on:input="compare"><label class="warn" v-if="register.password === ''">*必填*</label><br>
+            <label>再次输入密码</label>
+            <input class="jtf" id="pw2" type="password" v-model="register.passwordagain"  v-on:input="compare"><label class="warn" v-if="register.passwordagain === ''">*必填*</label><br>
+            <label class="warn" id="warn1" v-if="register.warning1 === 1">密码不一致</label><br v-if="register.warning1 === 1">
+            <input class="btn" type="button" value="注册" v-on:click="doregister">
+        </form>
+        <!--学生信息-->
+        <div v-show="UI.inforissee">
+            <h3>学生信息</h3>
+            <form>
+                <label>姓名:{{student.name}}</label><br>
+                <label>学号:{{student.id}}</label><br>
+                <label>年龄:{{student.age}}</label><br>
+                <label>电话号码:{{student.phonenumber}}</label><br>
+                <input class="btn1" type="button" value="查看课程" v-on:click="seeclasses">
+                <input class="btn1" type="button" value="修改选课信息">
+            </form>
+        </div>
+        <!--学生课程信息-->
+        <div v-show="UI.classsee">
+            <form>
+                <!--选课表-->
+                <label>已选课程</label><br>
+                <table>
+                <!--表头-->
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>课程名称</th>
+                    <th>课程状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(stuclass, i) in classes">
+                    <td>{{i + 1}}</td>
+                    <td>{{stuclass.name}}</td>
+                    <td>{{ stuclass.type === 1 ? '已开课' : '未开课'}}</td>
+                </tr>
+                </tbody>
+            </table>
+                <input class="btn" type="button" value="返回" v-on:click="backinfor">
+            </form>
+        </div>
+
+        <div v-show="UI.getinforsee">
+            <form class="inforform">
+                <h3>完善个人信息</h3>
+                <label>姓名{{register.username}}</label><br>
+                <label>年龄</label><input type="text" class="jtf" v-model="student.age">
+                <label class="warn" v-if="student.age === 0">*必填*</label><br>
+                <label class="warn" v-if="!(student.age >= 0 && student.age < 100)">你的年龄不合理</label><br>
+                <label>电话号码</label><input type="text" class="jtf" v-model="student.phonenumber">
+                <label class="warn" v-if="student.phonenumber === ''">*必填*</label><br>
+                <label class="warn" v-if="checkname(student.phonenumber) === false">你的电话号码输入不规范</label><br>
+                <input type="button" class="btn" value="注册" v-on:click="submitregister">
+                <input type="button" class="btn" value="返回" v-on:click="backtologin">
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="test.js"></script>
+
+</body>
+</html>
